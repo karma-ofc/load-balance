@@ -69,7 +69,7 @@
 Если выключить на сервер на котором он закрепился, то он перейдет на другой и зафиксируется на нем
 <img width="1176" height="92" alt="{A169C0AE-025F-4E34-BBE2-BA4EF8B0AE21}" src="https://github.com/user-attachments/assets/d42b8dc1-04c1-49b7-8fb0-442856e3223e" />
 <img width="1221" height="778" alt="{25278386-74C6-4F52-9AB2-08282E388400}" src="https://github.com/user-attachments/assets/2c82981f-ad87-411c-be69-ce2262294ff3" />
-Практика 23
+# Практика 23
 все backend теперь работают на одном порту 8080, backend переведён на Express, а Nginx и HAProxy ходят к сервисам по именам внутри docker
 
 Проверка
