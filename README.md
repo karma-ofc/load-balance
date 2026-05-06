@@ -1,4 +1,4 @@
-# load-balance 22 practice frontend
+# load-balance 22-23 practice frontend
 Подготовлены и запущены 3 backend-сервера в докере, а также Nginx балансировщик и HAProxy балансировщик (8080 и 8081 порты)
 <img width="1232" height="452" alt="{C7B27CCF-6A67-42DA-B7FB-AD35A0C6EBE3}" src="https://github.com/user-attachments/assets/3d40ea61-46f6-4480-8ae3-2ba7e14aa236" />
 <img width="1179" height="172" alt="{C4D0176A-31F6-4F88-9ECD-30044AE19AF7}" src="https://github.com/user-attachments/assets/ebf1307e-e03a-4d5e-8dfe-c3b5efaa3482" />
@@ -69,3 +69,26 @@
 Если выключить на сервер на котором он закрепился, то он перейдет на другой и зафиксируется на нем
 <img width="1176" height="92" alt="{A169C0AE-025F-4E34-BBE2-BA4EF8B0AE21}" src="https://github.com/user-attachments/assets/d42b8dc1-04c1-49b7-8fb0-442856e3223e" />
 <img width="1221" height="778" alt="{25278386-74C6-4F52-9AB2-08282E388400}" src="https://github.com/user-attachments/assets/2c82981f-ad87-411c-be69-ce2262294ff3" />
+Практика 23
+все backend теперь работают на одном порту 8080, backend переведён на Express, а Nginx и HAProxy ходят к сервисам по именам внутри docker
+
+Проверка
+Сервера запущены на 8080
+<img width="1188" height="255" alt="{3083A4E1-AC67-4EEF-875D-86C417900E36}" src="https://github.com/user-attachments/assets/f64b2bb7-6711-4cd4-967e-84a16dc8473c" />
+проверить балансировку: при повторных запросах curl http://localhost/ ответ
+должен поочерёдно приходить от разных backend-серверов;
+
+Через PostMan проверю как работает балансировка
+Первый запрос
+<img width="1218" height="725" alt="{5CD2A500-E84A-4F9F-B872-4FF121EA3E1B}" src="https://github.com/user-attachments/assets/8567db0c-49a7-4815-a627-76b4f3c3e124" />
+Второй запрос
+<img width="1222" height="704" alt="{FC5A2176-03DD-4EBC-961C-FFE2236EE7D7}" src="https://github.com/user-attachments/assets/4af518f7-258e-46c6-8b33-9543d459a3ea" />
+добавить настройки отказоустойчивости через max_fails и fail_timeout в
+конфигурации Nginx;
+<img width="522" height="55" alt="{A885CDB4-3391-4D8D-B609-51D3006BA99C}" src="https://github.com/user-attachments/assets/6fc32f19-a7f2-47d0-9c99-4dde6a0ed0fb" />
+
+остановить один из backend-контейнеров и убедиться, что Nginx перестаёт
+направлять на него запросы и продолжает обслуживать трафик через оставшиеся.
+Сервер сменился, если выключить один из серверов, запрос упадет на свободный (выключаем backend-2)
+<img width="1166" height="99" alt="{B6E7FB66-F5AD-4ED7-8A6C-ADE13ACA1CF6}" src="https://github.com/user-attachments/assets/58a152fa-c333-48b1-8f44-5b0adf8501b0" />
+<img width="1226" height="805" alt="{C341F97E-DF16-42B7-BB2B-9C4C4E2F7EA8}" src="https://github.com/user-attachments/assets/524b1b30-488c-448a-ac70-ff3fe0cf2820" />
